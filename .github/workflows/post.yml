@@ -2,7 +2,9 @@ name: post-video
 on:
   schedule: [{cron: "0 14,19 * * *"}]   # twice a day (UTC)
   workflow_dispatch:
-    inputs: {no_publish: {description: render only, type: boolean, default: true}}
+    inputs:
+      no_publish: {description: render only, type: boolean, default: true}
+      format: {description: video format, type: choice, default: all, options: [all, random, facts, horror, howto]}
 permissions: {contents: write}
 jobs:
   run:
@@ -19,7 +21,7 @@ jobs:
           mkdir -p models && cd models
           B=https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium
           curl -sSL -O $B/en_US-lessac-medium.onnx -O $B/en_US-lessac-medium.onnx.json
-      - run: python src/main.py ${{ github.event.inputs.no_publish == 'true' && '--no-publish' || '' }}
+      - run: python src/main.py --format ${{ github.event.inputs.format || 'random' }} ${{ github.event.inputs.no_publish == 'true' && '--no-publish' || '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
