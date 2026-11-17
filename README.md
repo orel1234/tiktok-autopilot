@@ -6,7 +6,7 @@ ffmpeg render with word-highlight captions → TikTok Content Posting API. Runs 
 ## Setup (once)
 1. Keys: `ANTHROPIC_API_KEY`, `PIXABAY_API_KEY` (free at pixabay.com/api/docs; Pexels also supported).
 2. Create an app at developers.tiktok.com, add **Content Posting API** (Direct Post) + Login Kit,
-   redirect URI `http://localhost:8080/cb`. Run `python src/auth.py` once -> `TIKTOK_REFRESH_TOKEN`.
+   redirect URI = `redirect_uri` in brand.json (https). Run `python src/auth.py` once -> `TIKTOK_REFRESH_TOKEN`.
 3. Put all keys in repo Secrets (see `.env.example`). Variable `TIKTOK_PRIVACY` = `SELF_ONLY` (default).
 4. Submit the app for TikTok audit; until approved, API posts are private only. Then set `TIKTOK_PRIVACY=PUBLIC_TO_EVERYONE`.
 

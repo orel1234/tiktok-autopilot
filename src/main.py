@@ -1,5 +1,5 @@
 import argparse, json, pathlib, random, time
-from ideas import new_script, save_history, FORMATS
+from ideas import new_script, save_history, FORMATS, BRAND
 from render import build
 from publish import post
 import series
@@ -22,7 +22,7 @@ def publish(script, mp4):
     caption = script["title"] + " " + " ".join("#" + h.lstrip("#") for h in script["hashtags"])
     print("Published, id:", post(str(mp4), caption))
 
-fmts = list(FORMATS) if a.format == "all" else [random.choice(list(FORMATS)) if a.format == "random" else a.format]
+fmts = list(FORMATS) if a.format == "all" else [random.choice(BRAND["enabled_formats"]) if a.format == "random" else a.format]
 for fmt in fmts:
     if fmt == "horror" and a.no_publish:
         # test mode: render the WHOLE story arc (all parts) so you can judge the ending; no state is saved

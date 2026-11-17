@@ -2,5 +2,9 @@
   "name": "Hidden Truths",
   "watermark": "@hiddentruths",
   "outro": "Follow for more things nobody tells you.",
-  "highlight_color_bgr": "00FFFF"
+  "highlight_color_bgr": "00FFFF",
+  "enabled_formats": [
+    "horror"
+  ],
+  "redirect_uri": "https://orel1234.github.io/tiktok-autopilot/"
 }
