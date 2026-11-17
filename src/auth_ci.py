@@ -13,7 +13,7 @@ if not landed:
     # summary. Percent-encode every character so the masked literal never appears; TikTok decodes it.
     enc_key = "".join(f"%{b:02X}" for b in K.encode())
     link = "https://www.tiktok.com/v2/auth/authorize/?client_key=" + enc_key + "&" + urllib.parse.urlencode(
-        {"scope": "user.info.basic,video.publish", "response_type": "code", "redirect_uri": R, "state": "x"})
+        {"scope": "user.info.basic,video.publish,video.upload", "response_type": "code", "redirect_uri": R, "state": "x"})
     summary.write(f"## Step 1\n\n[Click here to log in to TikTok and approve]({link})\n\n"
                   "After approving you land on a 404 page. Copy the FULL address from the address bar and, "
                   "within a few minutes, run this workflow again pasting it in `redirected_url`.\n")

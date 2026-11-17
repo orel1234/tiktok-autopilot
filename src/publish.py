@@ -26,6 +26,8 @@ def _check(resp, step):
 def post(path, caption):
     tok = access_token(); size = os.path.getsize(path)
     h = {"Authorization": f"Bearer {tok}", "Content-Type": "application/json; charset=UTF-8"}
+    if os.getenv("TIKTOK_POST_MODE", "direct") == "inbox":
+        return _inbox(path, size, h)
     # Ask TikTok which privacy levels this account allows (required by the Direct Post guidelines)
     info = _check(requests.post(f"{API}/post/publish/creator_info/query/", headers=h, timeout=30), "creator info")["data"]
     allowed = info.get("privacy_level_options", [])
@@ -53,5 +55,28 @@ def post(path, caption):
         if st.get("status") == "FAILED":
             raise RuntimeError(f"TikTok failed to process the video: {st.get('fail_reason')}")
         if st.get("status") == "PUBLISH_COMPLETE":
+            break
+    return pid
+
+def _inbox(path, size, h):
+    """Upload to the creator's TikTok inbox as a draft: they get a notification and tap Post in the app."""
+    d = _check(requests.post(f"{API}/post/publish/inbox/video/init/", headers=h, timeout=30, json={
+        "source_info": {"source": "FILE_UPLOAD", "video_size": size, "chunk_size": size, "total_chunk_count": 1}}),
+        "inbox init")
+    up = requests.put(d["data"]["upload_url"], data=open(path, "rb"), timeout=300, headers={
+        "Content-Type": "video/mp4", "Content-Length": str(size), "Content-Range": f"bytes 0-{size-1}/{size}"})
+    if up.status_code >= 400:
+        raise RuntimeError(f"video upload failed: HTTP {up.status_code} {up.text[:300]}")
+    pid = d["data"]["publish_id"]
+    import time
+    for _ in range(40):
+        time.sleep(15)
+        st = _check(requests.post(f"{API}/post/publish/status/fetch/", headers=h, timeout=30,
+                                  json={"publish_id": pid}), "status fetch")["data"]
+        print("TikTok status:", st.get("status"), st.get("fail_reason") or "")
+        if st.get("status") == "FAILED":
+            raise RuntimeError(f"TikTok failed to process the video: {st.get('fail_reason')}")
+        if st.get("status") in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE"):
+            print("Sent to your TikTok inbox: open the TikTok app notifications and tap the draft to post it.")
             break
     return pid

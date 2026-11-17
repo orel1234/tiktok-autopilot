@@ -5,7 +5,8 @@ on:
   workflow_dispatch:
     inputs:
       no_publish: {description: render only, type: boolean, default: true}
-      format: {description: video format, type: choice, default: all, options: [all, random, facts, horror, howto]}
+      format: {description: video format, type: choice, default: horror, options: [horror, all, random, facts, howto]}
+      post_mode: {description: 'direct = post automatically, inbox = send to TikTok drafts', type: choice, default: direct, options: [direct, inbox]}
 permissions: {contents: write}
 jobs:
   run:
@@ -33,6 +34,7 @@ jobs:
           TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
           TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
           TIKTOK_PRIVACY: ${{ vars.TIKTOK_PRIVACY || 'SELF_ONLY' }}
+          TIKTOK_POST_MODE: ${{ github.event.inputs.post_mode || vars.TIKTOK_POST_MODE || 'direct' }}
       - uses: actions/upload-artifact@v4
         with: {name: video, path: out/*.mp4}
       - name: remember used topics
