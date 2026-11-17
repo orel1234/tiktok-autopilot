@@ -4,7 +4,7 @@ Fully automatic "fun facts" TikTok videos: Claude writes the script → edge-tts
 ffmpeg render with word-highlight captions → TikTok Content Posting API. Runs on a GitHub Actions cron.
 
 ## Setup (once)
-1. Keys: `ANTHROPIC_API_KEY`, `PEXELS_API_KEY` (free at pexels.com/api).
+1. Keys: `ANTHROPIC_API_KEY`, `PIXABAY_API_KEY` (free at pixabay.com/api/docs; Pexels also supported).
 2. Create an app at developers.tiktok.com, add **Content Posting API** (Direct Post) + Login Kit,
    redirect URI `http://localhost:8080/cb`. Run `python src/auth.py` once -> `TIKTOK_REFRESH_TOKEN`.
 3. Put all keys in repo Secrets (see `.env.example`). Variable `TIKTOK_PRIVACY` = `SELF_ONLY` (default).
