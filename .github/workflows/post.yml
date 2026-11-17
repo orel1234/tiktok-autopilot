@@ -1,6 +1,7 @@
 name: post-video
 on:
-  schedule: [{cron: "0 23,2 * * *"}]   # twice a day: 18:00 and 21:00 New York (EST), UTC times
+  # schedule paused until API-posted videos play (re-enable: uncomment the next line)
+  # schedule: [{cron: "0 23,2 * * *"}]   # 18:00 and 21:00 New York (EST), UTC times
   workflow_dispatch:
     inputs:
       no_publish: {description: render only, type: boolean, default: true}
