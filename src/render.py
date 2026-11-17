@@ -25,7 +25,7 @@ def build(script, workdir, out_path):
     wd = pathlib.Path(workdir); wd.mkdir(parents=True, exist_ok=True)
     used, segs, words_all, t0 = set(), [], [], 0.0
     for i, sc in enumerate(script["scenes"]):
-        a = wd / f"a{i}.mp3"; words, dur = speak(sc["narration"], a); dur += 0.25
+        a = wd / f"a{i}.mp3"; words, dur, a = speak(sc["narration"], a); dur += 0.25
         c = wd / f"c{i}.mp4"
         if not fetch_clip(sc["query"], c, used):
             fetch_clip("abstract background", c, used)

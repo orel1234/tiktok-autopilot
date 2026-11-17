@@ -13,6 +13,12 @@ jobs:
         with: {python-version: "3.12"}
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
       - run: pip install -r requirements.txt
+      - name: Fallback voice (Piper)
+        run: |
+          pip install piper-tts
+          mkdir -p models && cd models
+          B=https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium
+          curl -sSL -O $B/en_US-lessac-medium.onnx -O $B/en_US-lessac-medium.onnx.json
       - run: python src/main.py ${{ github.event.inputs.no_publish == 'true' && '--no-publish' || '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
