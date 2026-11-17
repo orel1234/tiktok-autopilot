@@ -27,8 +27,8 @@ def save_history(topic):
 def new_script():
     client = anthropic.Anthropic()
     msg = client.messages.create(
-        model=MODEL, max_tokens=2000,
+        model=MODEL, max_tokens=6000,
         messages=[{"role": "user", "content": PROMPT.format(used=load_history()[-60:])}],
     )
-    text = msg.content[0].text
+    text = "".join(b.text for b in msg.content if b.type == "text")
     return json.loads(text[text.index("{"): text.rindex("}") + 1])
