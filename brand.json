@@ -6,5 +6,5 @@
   "enabled_formats": [
     "horror"
   ],
-  "redirect_uri": "https://orel1234.github.io/tiktok-autopilot/"
+  "redirect_uri": "https://nightshiftstories.netlify.app/callback/"
 }
