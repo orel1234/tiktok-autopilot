@@ -29,12 +29,17 @@ def _piper(text, path):
         d = dur * len(t) / total; words.append((t, t0, t0 + d)); t0 += d
     return words, dur, wav
 
+_edge_ok = True  # once edge-tts fails in a run, use Piper for the rest of it
+
 def speak(text, path):
     """Returns (words, duration, audio_path)."""
-    for _ in range(3):
-        try:
-            w, d = asyncio.run(_edge(text, path)); return w, d, path
-        except Exception as e:
-            err = e
-    print("edge-tts failed, using Piper:", type(err).__name__)
+    global _edge_ok
+    if _edge_ok:
+        for _ in range(2):
+            try:
+                w, d = asyncio.run(_edge(text, path)); return w, d, path
+            except Exception as e:
+                err = e
+        _edge_ok = False
+        print("edge-tts failed, using Piper for the rest of this run:", type(err).__name__)
     return _piper(text, path)
