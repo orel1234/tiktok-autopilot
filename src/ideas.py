@@ -48,7 +48,7 @@ Brainstorm 10 specific subjects with a surprising angle, pick the best. Explain 
 with 4-6 steps that each reveal something surprising, and a payoff. Accurate and verifiable only."""),
 }
 
-PROMPT = """You write viral 60-75 second TikTok scripts for a US audience, for the brand "{brand}".
+PROMPT = """You write viral 75-90 second TikTok scripts (target 75-90 seconds spoken, about 220 words) for a US audience, for the brand "{brand}".
 Write {brief}
 
 Topics already used (do NOT repeat or paraphrase): {used}
@@ -57,7 +57,7 @@ Return ONLY JSON:
 {{"candidates": [str x10], "topic": str, "title": str (<=90 chars, no hashtags),
  "hashtags": [str, ...] (4-5, no #),
  "scenes": [{{"narration": str (1-2 short sentences), "query": str (2-3 word stock-footage search, concrete & visual)}}]}}
-Use 10-14 scenes. Do not write a sign-off line: the brand outro is added automatically."""
+Use 8-11 scenes, about 220 words of narration in total. Do not write a sign-off line: the brand outro is added automatically."""
 
 def load_history():
     return json.loads(HISTORY.read_text()) if HISTORY.exists() else []

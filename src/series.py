@@ -6,7 +6,7 @@ from ideas import MODEL, BRAND, load_history
 STATE = pathlib.Path("series.json")
 
 PLAN_PROMPT = """Plan a short horror story told in first person by one narrator, to be released as {n} TikTok parts
-(each part about 60-75 seconds when narrated). Setting seed: {seed}.
+(each part about 75-85 seconds when narrated, around 210 words). Setting seed: {seed}.
 Topics already used (do not repeat): {used}
 
 The story MUST have real substance and a satisfying payoff:
@@ -33,7 +33,7 @@ Full plan:
 Write part {k} following its plan exactly, with concrete incidents and dialogue snippets.
 {opening}
 {ending}
-10-14 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is moody and
+About 200-220 words of narration in total (roughly 75-85 seconds spoken), in 8-10 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is moody and
 concrete (dark hallway, foggy forest, empty street at night). Do not add any sign-off line; it is added automatically.
 Return ONLY JSON: {{"scenes": [{{"narration": str, "query": str}}]}}"""
 
@@ -43,7 +43,7 @@ def _ask(prompt, max_tokens=6000):
     t = "".join(b.text for b in msg.content if b.type == "text")
     return json.loads(t[t.index("{"): t.rindex("}") + 1])
 
-def new_plan(n=4):
+def new_plan(n=5):
     seed = random.choice(["a night-shift job with strange rules", "a house I just moved into", "a road trip detour",
         "a baby monitor / smart home device", "an old family video tape", "a remote cabin rental",
         "a hospital or hotel at night", "a neighbour who never leaves the house"])
