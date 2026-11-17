@@ -42,4 +42,16 @@ def post(path, caption):
         "Content-Type": "video/mp4", "Content-Length": str(size), "Content-Range": f"bytes 0-{size-1}/{size}"})
     if up.status_code >= 400:
         raise RuntimeError(f"video upload failed: HTTP {up.status_code} {up.text[:300]}")
-    return d["data"]["publish_id"]
+    pid = d["data"]["publish_id"]
+    # Follow TikTok's processing until it finishes, so failures show up in the log
+    import time
+    for _ in range(40):
+        time.sleep(15)
+        st = _check(requests.post(f"{API}/post/publish/status/fetch/", headers=h, timeout=30,
+                                  json={"publish_id": pid}), "status fetch")["data"]
+        print("TikTok status:", st.get("status"), st.get("fail_reason") or "")
+        if st.get("status") == "FAILED":
+            raise RuntimeError(f"TikTok failed to process the video: {st.get('fail_reason')}")
+        if st.get("status") == "PUBLISH_COMPLETE":
+            break
+    return pid
