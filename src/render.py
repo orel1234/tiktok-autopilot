@@ -37,7 +37,7 @@ def build(script, workdir, out_path):
             "-filter_complex", "[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5[bg];"
             "[b]scale=1080:-2:force_original_aspect_ratio=decrease,setsar=1[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30[v]",
             "-map", "[v]", "-map", "1:a",
-            "-af", "apad", "-shortest", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+            "-af", "apad", "-shortest", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-ar", "44100", "-ac", "2", seg)
         segs.append(seg)
         words_all += [(w, s + t0, e + t0) for w, s, e in words]; t0 += dur
@@ -54,5 +54,6 @@ def build(script, workdir, out_path):
     ev.append(f"Dialogue: 1,{_t(0)},{_t(t0)},Mark,,{BRAND['watermark']}")
     ass = wd / "cap.ass"; ass.write_text(ASS_HEAD + "\n".join(ev))
     run("ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-vf", f"ass={ass}",
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "copy", "-movflags", "+faststart", out_path)
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p", "-profile:v", "high",
+        "-level", "4.1", "-r", "30", "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-movflags", "+faststart", out_path)
     return t0
