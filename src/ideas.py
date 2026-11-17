@@ -67,14 +67,8 @@ def save_history(topic):
 
 def new_script(fmt="facts"):
     f = FORMATS[fmt]
-    client = anthropic.Anthropic()
-    msg = client.messages.create(
-        model=MODEL, max_tokens=8000,
-        messages=[{"role": "user", "content": PROMPT.format(
-            brand=BRAND["name"], brief=f["brief"].format(topic=f["topic"]()), used=load_history()[-60:])}],
-    )
-    text = "".join(b.text for b in msg.content if b.type == "text")
-    s = json.loads(text[text.index("{"): text.rindex("}") + 1])
+    from series import _ask
+    s = _ask(PROMPT.format(brand=BRAND["name"], brief=f["brief"].format(topic=f["topic"]()), used=load_history()[-60:]))
     s["format"] = fmt
     s["scenes"].append({"narration": BRAND["outro"], "query": "city night lights"})  # signature outro
     s["hashtags"] = list(dict.fromkeys(s["hashtags"] + [fmt if fmt != "howto" else "howitworks"]))

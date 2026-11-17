@@ -37,11 +37,17 @@ About 200-220 words of narration in total (roughly 75-85 seconds spoken), in 8-1
 concrete (dark hallway, foggy forest, empty street at night). Do not add any sign-off line; it is added automatically.
 Return ONLY JSON: {{"scenes": [{{"narration": str, "query": str}}]}}"""
 
-def _ask(prompt, max_tokens=6000):
-    msg = anthropic.Anthropic().messages.create(model=MODEL, max_tokens=max_tokens,
-        messages=[{"role": "user", "content": prompt}])
-    t = "".join(b.text for b in msg.content if b.type == "text")
-    return json.loads(t[t.index("{"): t.rindex("}") + 1])
+def _ask(prompt, max_tokens=16000, tries=3):
+    """Call Claude and parse the JSON object in its reply; retry if the reply has no usable JSON."""
+    for i in range(tries):
+        msg = anthropic.Anthropic().messages.create(model=MODEL, max_tokens=max_tokens,
+            messages=[{"role": "user", "content": prompt}])
+        t = "".join(b.text for b in msg.content if b.type == "text")
+        try:
+            return json.loads(t[t.index("{"): t.rindex("}") + 1])
+        except ValueError:
+            print(f"Claude reply #{i+1} had no valid JSON (stop_reason={msg.stop_reason}): {t[:300]!r}")
+    raise RuntimeError("Claude did not return valid JSON")
 
 def new_plan(n=5):
     seed = random.choice(["a night-shift job with strange rules", "a house I just moved into", "a road trip detour",
