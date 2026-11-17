@@ -10,7 +10,7 @@ summary = open(os.environ.get("GITHUB_STEP_SUMMARY", "/dev/stdout"), "a")
 
 if not landed:
     link = "https://www.tiktok.com/v2/auth/authorize/?" + urllib.parse.urlencode(
-        {"client_key": K, "scope": "user.info.basic,video.publish,video.upload",
+        {"client_key": K, "scope": "user.info.basic,video.publish",
          "response_type": "code", "redirect_uri": R, "state": "x"})
     summary.write(f"## Step 1\n\n[Click here to log in to TikTok and approve]({link})\n\n"
                   "After approving you land on a 404 page. Copy the FULL address from the address bar and, "

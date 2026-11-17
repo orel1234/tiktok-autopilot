@@ -6,7 +6,7 @@ import json, os, pathlib, urllib.parse, requests
 K, S = os.environ["TIKTOK_CLIENT_KEY"], os.environ["TIKTOK_CLIENT_SECRET"]
 R = json.loads(pathlib.Path("brand.json").read_text())["redirect_uri"]
 print("1) Open this link, log in with the TikTok account and approve:\n\n" + "https://www.tiktok.com/v2/auth/authorize/?" +
-      urllib.parse.urlencode({"client_key": K, "scope": "user.info.basic,video.publish,video.upload",
+      urllib.parse.urlencode({"client_key": K, "scope": "user.info.basic,video.publish",
                               "response_type": "code", "redirect_uri": R, "state": "x"}))
 url = input("\n2) Paste the full URL you were redirected to: ").strip()
 code = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)["code"][0]
