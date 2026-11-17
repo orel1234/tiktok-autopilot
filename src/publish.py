@@ -5,8 +5,8 @@ API = "https://open.tiktokapis.com/v2"
 
 def access_token():
     r = requests.post(f"{API}/oauth/token/", data={
-        "client_key": os.environ["TIKTOK_CLIENT_KEY"], "client_secret": os.environ["TIKTOK_CLIENT_SECRET"],
-        "grant_type": "refresh_token", "refresh_token": os.environ["TIKTOK_REFRESH_TOKEN"]}, timeout=30)
+        "client_key": os.environ["TIKTOK_CLIENT_KEY"].strip(), "client_secret": os.environ["TIKTOK_CLIENT_SECRET"].strip(),
+        "grant_type": "refresh_token", "refresh_token": os.environ["TIKTOK_REFRESH_TOKEN"].strip()}, timeout=30)
     r.raise_for_status(); j = r.json()
     if "access_token" not in j:
         raise RuntimeError(f"token refresh failed: {j}")
