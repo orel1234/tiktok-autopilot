@@ -6,7 +6,7 @@ from ideas import MODEL, BRAND, load_history
 STATE = pathlib.Path("series.json")
 
 PLAN_PROMPT = """Plan a short horror story told in first person by one narrator, to be released as {n} TikTok parts
-(each part about 75-85 seconds when narrated, around 210 words). Setting seed: {seed}.
+(each part about 80-90 seconds when narrated, around 250 words). Setting seed: {seed}.
 Topics already used (do not repeat): {used}
 
 The story MUST have real substance and a satisfying payoff:
@@ -33,7 +33,7 @@ Full plan:
 Write part {k} following its plan exactly, with concrete incidents and dialogue snippets.
 {opening}
 {ending}
-About 200-220 words of narration in total (roughly 75-85 seconds spoken), in 8-10 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is moody and
+About 240-260 words of narration in total (roughly 80-90 seconds spoken), in 9-11 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is moody and
 concrete (dark hallway, foggy forest, empty street at night). Do not add any sign-off line; it is added automatically.
 Return ONLY JSON: {{"scenes": [{{"narration": str, "query": str}}]}}"""
 

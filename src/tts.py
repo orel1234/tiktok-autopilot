@@ -20,7 +20,7 @@ async def _edge(text, path):
 
 def _piper(text, path):
     wav = pathlib.Path(path).with_suffix(".wav")
-    subprocess.run(["python", "-m", "piper", "-m", PIPER_MODEL, "--length-scale", "0.9", "-f", str(wav)],
+    subprocess.run(["python", "-m", "piper", "-m", PIPER_MODEL, "--length-scale", "1.0", "-f", str(wav)],
                    input=text.encode(), check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with wave.open(str(wav)) as w:
         dur = w.getnframes() / w.getframerate()
