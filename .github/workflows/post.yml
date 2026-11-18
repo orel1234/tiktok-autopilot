@@ -1,13 +1,12 @@
 name: post-video
 on:
-  # Inbox mode: drafts arrive in the TikTok app at 16:00 and 19:00 Israel time (14:00/17:00 UTC); you tap Post.
-  # After the app is approved for Direct Post, switch to US evening: "0 23,2 * * *" and post_mode direct.
-  schedule: [{cron: "0 14,17 * * *"}]
+  # PAUSED until TikTok approves the app. After approval: uncomment, and use post_mode direct.
+  # schedule: [{cron: "0 23,2 * * *"}]   # 18:00 and 21:00 New York (EST), UTC times
   workflow_dispatch:
     inputs:
       no_publish: {description: "test only: render, do not post", type: boolean, default: false}
       format: {description: video format, type: choice, default: horror, options: [horror, all, random, facts, howto]}
-      post_mode: {description: 'inbox = send to TikTok drafts, direct = post automatically', type: choice, default: inbox, options: [inbox, direct]}
+      post_mode: {description: 'direct = post automatically, inbox = send to TikTok drafts', type: choice, default: direct, options: [direct, inbox]}
 permissions: {contents: write}
 jobs:
   run:
@@ -35,7 +34,7 @@ jobs:
           TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
           TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
           TIKTOK_PRIVACY: ${{ vars.TIKTOK_PRIVACY || 'SELF_ONLY' }}
-          TIKTOK_POST_MODE: ${{ github.event.inputs.post_mode || vars.TIKTOK_POST_MODE || 'inbox' }}
+          TIKTOK_POST_MODE: ${{ github.event.inputs.post_mode || vars.TIKTOK_POST_MODE || 'direct' }}
       - uses: actions/upload-artifact@v4
         with: {name: video, path: out/*.mp4}
       - name: remember used topics
