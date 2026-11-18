@@ -34,8 +34,7 @@ def build(script, workdir, out_path):
             fetch_clip("abstract background", c, used)
         seg = wd / f"s{i}.mp4"
         run("ffmpeg", "-y", "-stream_loop", "-1", "-i", c, "-i", a, "-t", f"{dur:.2f}",
-            "-filter_complex", "[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5[bg];"
-            "[b]scale=1080:-2:force_original_aspect_ratio=decrease,setsar=1[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30[v]",
+            "-filter_complex", "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[v]",
             "-map", "[v]", "-map", "1:a",
             "-af", "apad", "-shortest", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-ar", "44100", "-ac", "2", seg)

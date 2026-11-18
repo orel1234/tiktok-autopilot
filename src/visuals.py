@@ -3,18 +3,23 @@ import os, random, requests
 
 def _pixabay(query, used):
     r = requests.get("https://pixabay.com/api/videos/",
-        params={"key": os.environ["PIXABAY_API_KEY"], "q": query, "per_page": 20, "safesearch": "true"}, timeout=30)
+        params={"key": os.environ["PIXABAY_API_KEY"], "q": query, "per_page": 50, "safesearch": "true"}, timeout=30)
     r.raise_for_status()
     hits = r.json().get("hits", [])
     hits = [h for h in hits if h["id"] not in used] or hits
     if not hits:
         return None, None
-    h = random.choice(hits[:8])
-    v = h["videos"]
-    for size in ("large", "medium", "small"):
-        if v.get(size, {}).get("url"):
-            return h["id"], v[size]["url"]
-    return None, None
+    def best(h):  # largest available rendition
+        for size in ("large", "medium", "small"):
+            f = h["videos"].get(size, {})
+            if f.get("url"):
+                return f
+        return {}
+    # prefer vertical clips (they fill a phone screen without cropping), then the sharpest ones
+    portrait = [h for h in hits if best(h).get("height", 0) > best(h).get("width", 1)]
+    pool = portrait[:8] or sorted(hits[:15], key=lambda h: -best(h).get("width", 0))[:6]
+    h = random.choice(pool)
+    return h["id"], best(h).get("url")
 
 def _pexels(query, used):
     r = requests.get("https://api.pexels.com/videos/search",
