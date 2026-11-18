@@ -4,6 +4,8 @@ from tts import speak
 from visuals import fetch_clip
 import json
 BRAND = json.loads(pathlib.Path('brand.json').read_text())
+# moody colour grade so every clip looks like the same dark, night-time story
+GRADE = BRAND.get('grade', 'eq=brightness=-0.07:contrast=1.12:saturation=0.6,vignette=PI/4')
 
 def _t(s):  # ASS timestamp
     h, m = int(s // 3600), int(s % 3600 // 60)
@@ -34,7 +36,7 @@ def build(script, workdir, out_path):
             fetch_clip("abstract background", c, used)
         seg = wd / f"s{i}.mp4"
         run("ffmpeg", "-y", "-stream_loop", "-1", "-i", c, "-i", a, "-t", f"{dur:.2f}",
-            "-filter_complex", "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[v]",
+            "-filter_complex", "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30," + GRADE + "[v]",
             "-map", "[v]", "-map", "1:a",
             "-af", "apad", "-shortest", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-ar", "44100", "-ac", "2", seg)

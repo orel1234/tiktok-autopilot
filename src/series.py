@@ -33,8 +33,9 @@ Full plan:
 Write part {k} following its plan exactly, with concrete incidents and dialogue snippets.
 {opening}
 {ending}
-About 240-260 words of narration in total (roughly 80-90 seconds spoken), in 9-11 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is moody and
-concrete (dark hallway, foggy forest, empty street at night). Do not add any sign-off line; it is added automatically.
+About 240-260 words of narration in total (roughly 80-90 seconds spoken), in 9-11 scenes. Each scene: 1-2 short sentences of narration + a 2-3 word stock-footage search that is dark, night-time and concrete
+(dark hallway, foggy forest at night, flickering light, empty parking lot night, rain on window night).
+Never use daytime scenes, city skylines, offices, computers, smiling people or faces. Do not add any sign-off line; it is added automatically.
 Return ONLY JSON: {{"scenes": [{{"narration": str, "query": str}}]}}"""
 
 def _ask(prompt, max_tokens=16000, tries=3):
