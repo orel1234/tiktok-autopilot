@@ -4,7 +4,7 @@ on:
   # schedule: [{cron: "0 23,2 * * *"}]   # 18:00 and 21:00 New York (EST), UTC times
   workflow_dispatch:
     inputs:
-      no_publish: {description: render only, type: boolean, default: true}
+      no_publish: {description: "test only: render, do not post", type: boolean, default: false}
       format: {description: video format, type: choice, default: horror, options: [horror, all, random, facts, howto]}
       post_mode: {description: 'direct = post automatically, inbox = send to TikTok drafts', type: choice, default: direct, options: [direct, inbox]}
 permissions: {contents: write}
