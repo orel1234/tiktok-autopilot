@@ -1,0 +1,39 @@
+{
+ "plan": {
+  "title": "The Detour Sign Had My Name On It",
+  "hashtags": [
+   "horrorstory",
+   "roadtriphorror",
+   "scarystorytime",
+   "creepystories"
+  ],
+  "characters": "Dana Reyes (narrator, 29, driving her younger brother home after their grandmother's funeral); Cole Reyes (her brother, 22, jokey, always on his phone); Marla Keene (the diner waitress in Pellam Ridge, in her 50s, with paint-stained fingertips she keeps hiding)",
+  "setting": "Pellam Ridge, a drought-bleached farm town on a county road in the Midwest that appears on no map. A closed highway forces a detour there. Key places: the Ridge Diner, with its leather guest ledger; the dead grain elevator at the end of Main Street, with a pit under it; the town sign reading POP. 212.",
+  "parts": [
+   {
+    "events": "Dana and Cole hit a barricade on the highway at dusk, with an orange hand-painted sign reading BRIDGE OUT, DETOUR. The lettering is unnervingly perfect and the paint is still tacky. They follow a string of identical signs onto a county road. The GPS shows only a blank gray field and there is no cell signal. They see no other cars for 40 miles. Every fork has a sign exactly where they need it. The signs get fresher, and one has a wet drip running down the O.",
+    "cliffhanger": "At the last fork a sign reads in the same careful paint: WELCOME, DANA & COLE. Neither of them has said their names to anyone, and the paint is still dripping."
+   },
+   {
+    "events": "They roll into Pellam Ridge as the streetlights snap on. Past the sign reading POP. 212, every porch holds a motionless resident facing the car, smiling. The gas station is shut and Dana's tank is nearly empty. The only open place is the Ridge Diner. Marla pours coffee with shaking hands and hides her paint-stained fingers. She slides over a leather guest ledger and says everyone has to sign, 'town rules.' Dana notices the page has exactly one blank line left. Marla slips her a receipt that reads DON'T SIGN. Cole, who never read it, jokingly scrawls his name on the last line.",
+    "cliffhanger": "The second Cole's pen lifts, every light in the diner dies. In the dark Marla whispers, 'Now it knows which one is his.'"
+   },
+   {
+    "events": "Dana drags Cole to the car and they drive out of town, but every road bends back to Main Street. Residents wave politely from porches each time they pass, and the town sign keeps flashing by, POP. 212. They give up and take a room above the diner. At 11 p.m. Cole sits up and sleepwalks out barefoot. Dana follows him down Main Street to the dead grain elevator. Inside, a rectangular pit opens in the floor, and around its rim stand rows and rows of shoes, hundreds of pairs from every decade. The newest pair, a sneaker with a bright orange lace, sits at the front, and it's Cole's brand.",
+    "cliffhanger": "Dana grabs Cole at the edge. From the dark below, a voice speaks her name in her own voice, calmly, and says, 'Not yet. He's last.'"
+   },
+   {
+    "events": "Dana hauls Cole back to the diner and corners Marla in the kitchen. Marla breaks down. Eleven years ago she was a detoured traveler herself, and she signed the last line. She tells Dana that on Count Night, midnight, whoever's name is last in the ledger is taken down the pit. Marla admits she painted the WELCOME sign two nights ago, because her hand 'just does it' when the dreams give her names. The people on the porches are not locals. Dana studies their clothes and sees a 1970s polyester suit, a WWII-era dress, and a ski jacket. Marla says the pit doesn't kill the taken. They come back up in the morning smiling and are drawn to paint signs for the next one. Only a name written beneath Cole's, in the margin, would replace him. Cole, still dazed, takes the pen and smiles.",
+    "cliffhanger": "With three minutes to midnight, all 212 residents silently fill the diner and block the door. Cole calmly says, 'It's okay, Dana. It's already calling me,' and begins to write his own name again, darker."
+   },
+   {
+    "events": "Dana snatches the pen and understands what the loop is. The pit needs one new person a year, and each person it takes becomes another sign painter and lure, which keeps the town at 212 and the Tenant fed. There was never a bridge out. The residents repaint the signs every autumn. Marla confirms it can't be a resident's name, only someone not already in the book. Dana writes her own name in the margin beneath Cole's. The residents part like water, and Marla pulls Cole to the car and he drives out of town, the roads straight at last. Dana walks to the elevator alone. At the rim of the pit she hears 212 voices whispering names. She steps off. She wakes at dawn on Main Street holding a wet brush, with a fresh sign propped against her knee and the town sign beside her now reading POP. 213.",
+    "cliffhanger": "Dana is a resident now. Her hand keeps painting, perfectly. She tells the viewer that if they ever see a DETOUR sign with lettering this neat, with a drip on the O, they should turn around, because she can't stop her hand. Last line: 'And if the sign says your name... I'm sorry. I'm very good at spelling it.'"
+   }
+  ],
+  "reveal": "There was never a washed-out bridge. The town of Pellam Ridge is the surface of something living in the pit beneath the dead grain elevator. Each autumn, on Count Night at midnight, it takes whoever's name is last in the Ridge Diner ledger. The taken return at dawn as residents, hollowed and smiling, and are compelled to paint detour signs for the next victim. That is why the lettering is always perfect and the paint always wet. The signs even carry the next victim's name, because the thing in the pit whispers it to the painters in their dreams. The 212 'locals' are all earlier travelers, and the town sign counts them. Only a name from someone not already in the book can replace the last name. Dana uses that rule to save Cole by writing her own name beneath his. She becomes resident number 213, a sign painter, and the sign is repainted to say so.",
+  "n": 5
+ },
+ "next_part": 2,
+ "last_narration": "At the last fork, the sign read: WELCOME, DANA & COLE. We had never told our names to anyone. And the paint was still dripping."
+}
