@@ -6,9 +6,9 @@ body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,sans-serif;ma
 main{max-width:680px;margin:0 auto}h1{font-size:1.9rem;line-height:1.2;margin:0 0 6px}h2{margin:24px 0 4px;font-size:1.1rem}
 .muted{color:var(--muted)}a{color:var(--accent)}section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;margin-top:24px}
 code{word-break:break-all}button{font:inherit;padding:10px 18px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
-</style><title>TikTok login</title></head><body><main><h1>TikTok login</h1>
-<section><p id="msg">Copy this full address and paste it into the <b>tiktok-login</b> workflow (field <code>redirected_url</code>) within a few minutes:</p>
+</style><title>Login</title></head><body><main><h1>Login code</h1>
+<section><p id="msg">Copy this full address and paste it into the login workflow you started (<b>tiktok-login</b> or <b>youtube-login</b>) (field <code>redirected_url</code>) within a few minutes:</p>
 <p><code id="u"></code></p><button id="b" type="button">Copy</button></section>
 <script>const u=location.href;document.getElementById('u').textContent=u;
-if(!location.search.includes('code=')){document.getElementById('msg').textContent='No login code in this address. Start again from the tiktok-login workflow.';document.getElementById('b').hidden=true}
+if(!location.search.includes('code=')){document.getElementById('msg').textContent='No login code in this address. Start again from the login workflow.';document.getElementById('b').hidden=true}
 document.getElementById('b').onclick=()=>navigator.clipboard.writeText(u).then(()=>b.textContent='Copied',()=>{const r=document.createRange();r.selectNode(document.getElementById('u'));getSelection().removeAllRanges();getSelection().addRange(r)})</script></main></body></html>

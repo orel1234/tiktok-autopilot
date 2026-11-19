@@ -80,8 +80,9 @@ def write_part(plan, k, last_narration=""):
 def load_state():
     return json.loads(STATE.read_text()) if STATE.exists() else None
 
-def save_state(plan, next_part, last_narration):
-    STATE.write_text(json.dumps({"plan": plan, "next_part": next_part, "last_narration": last_narration}, indent=1))
+def save_state(plan, next_part, last_narration, parts=None, release=None):
+    STATE.write_text(json.dumps({"plan": plan, "next_part": next_part, "last_narration": last_narration,
+                                 "parts": parts or [], "release": release}, indent=1))
 
 def clear_state():
     STATE.unlink(missing_ok=True)

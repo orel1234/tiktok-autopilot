@@ -28,7 +28,7 @@ def run(*a):
 
 def build(script, workdir, out_path):
     wd = pathlib.Path(workdir); wd.mkdir(parents=True, exist_ok=True)
-    used, segs, words_all, t0 = set(), [], [], 0.0
+    used, segs, words_all, t0, durs = set(), [], [], 0.0, []
     for i, sc in enumerate(script["scenes"]):
         a = wd / f"a{i}.mp3"; words, dur, a = speak(sc["narration"], a); dur += 0.25
         c = wd / f"c{i}.mp4"
@@ -40,7 +40,7 @@ def build(script, workdir, out_path):
             "-map", "[v]", "-map", "1:a",
             "-af", "apad", "-shortest", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-ar", "44100", "-ac", "2", seg)
-        segs.append(seg)
+        segs.append(seg); durs.append(dur)
         words_all += [(w, s + t0, e + t0) for w, s, e in words]; t0 += dur
     lst = wd / "list.txt"; lst.write_text("".join(f"file '{s.resolve()}'\n" for s in segs))
     # captions: 3-word groups, each word highlighted as spoken
@@ -57,4 +57,4 @@ def build(script, workdir, out_path):
     run("ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-vf", f"ass={ass}",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p", "-profile:v", "high",
         "-level", "4.1", "-r", "30", "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-movflags", "+faststart", out_path)
-    return t0
+    return t0, durs

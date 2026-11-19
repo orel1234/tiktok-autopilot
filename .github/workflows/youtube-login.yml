@@ -1,0 +1,16 @@
+name: youtube-login
+on:
+  workflow_dispatch:
+    inputs:
+      redirected_url: {description: "Step 2: paste the full URL you landed on (leave empty for step 1)", required: false, default: ""}
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - run: python src/yt_auth_ci.py
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          REDIRECTED_URL: ${{ github.event.inputs.redirected_url }}
